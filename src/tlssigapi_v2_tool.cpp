@@ -3,8 +3,8 @@
 #pragma warning(disable : 4099)
 #endif
 
-// 此文件演示了文件两个接口的使用方法
-// 首先是生成签名接口的方法，然后的校验签名接口的方法
+// This file describes how to use the two interfaces in the file
+// First is the method of generating the signature interface, and then the method of verifying the signature interface
 
 #include <stdlib.h>
 #include <cstring>
@@ -51,7 +51,7 @@ static int genUserSig(const std::string &key, const std::string &sig_file, uint3
     return -4;
   }
 
-  // 将签名写入文件
+  // Write the signature to the file
   int written_cnt = (int)fwrite(sig.c_str(), sizeof(char), sig.size(), sig_fp);
   if (sig.size() > (unsigned int)written_cnt && 0 != ferror(sig_fp)) {
     std::cout << "write sig content failed" << std::endl;
@@ -85,7 +85,7 @@ static int genPrivateMapKey(const std::string &key, const std::string &sig_file,
     return -4;
   }
 
-  // 将签名写入文件
+  // Write the signature to the file
   int written_cnt = (int)fwrite(sig.c_str(), sizeof(char), sig.size(), sig_fp);
   if (sig.size() > (unsigned int)written_cnt && 0 != ferror(sig_fp)) {
     std::cout << "write sig content failed" << std::endl;
@@ -118,7 +118,7 @@ static int genPrivateMapKeyWithStringRoomID(const std::string &key, const std::s
     return -4;
   }
 
-  // 将签名写入文件
+  // Write the signature to the file
   int written_cnt = (int)fwrite(sig.c_str(), sizeof(char), sig.size(), sig_fp);
   if (sig.size() > (unsigned int)written_cnt && 0 != ferror(sig_fp)) {
     std::cout << "write sig content failed" << std::endl;

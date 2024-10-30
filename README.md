@@ -1,73 +1,72 @@
-## 说明
-此项目为 tls-sig-api-v2 版本 c++ 实现，之前非对称密钥无法使用此版本 api，如需使用请查看[这里](https://github.com/tencentyun/tls-sig-api)。
+## Note
+This project is the C++ implementation of tls-sig-api-v2. Previous asymmetric keys cannot use APIs of this version. To enable them to use APIs of this version, [see here](https://github.com/tencentcloud/tls-sig-api)。
 
-## 下载代码并同步依赖
+## Download code and sync dependencies
 ```shell
-git clone https://github.com/tencentyun/tls-sig-api-v2-cpp.git
+git clone https://github.com/tencentcloud/tls-sig-api-v2-cpp.git
 cd tls-sig-api-v2-cpp
 git submodule update --init --recursive
 ```
 
-如果上面同步代码的操作出现问题，可以到[这里](https://github.com/tencentyun/tls-sig-api-v2-cpp/releases)下载源代码。
+If the above code sync fails, download the source code [here](https://github.com/tencentcloud/tls-sig-api-v2-cpp/releases).
 
-## 构建
+## Build
 
-### 类 Unix 系统
-构建依赖于 `CMake` 、 `make` 以及 `gcc`，请确保已经安装。
-
+### Unix-like system
+`CMake` 、 `Make` and `GCC` are required for project building. Ensure that they have been installed.
 ```shell
 cmake CMakeLists.txt
 cmake --build .
 ```
 
-如果需要手动指定 openssl 路径，运行 `cmake CMakeLists.txt` 命令时添加下列命令
+If you need to manually specify the OpenSSL path, add the following commands when running the `cmake CMakeLists.txt`  command:
 ```shell
 cmake  -DOPENSSL_ROOT_DIR=your_openssl_root_dir CMakeLists.txt
 cmake --build .
 ```
 
-头文件路径如下
+The header file path is as follows:
 ```
 src/tls_sig_api_v2.h
 ```
 
-库文件路径如下
+The library file path is as follows:
 ```
 
 ./libtlssigapi_v2.a
 ```
 
-用户构建项目时除了链接 `libtlssigapi_v2.a`，还需引入 `zlib` 和 `openssl`，类 Unix 系统一般都会自带，只需要在链接指令中添加下面的指令
+In addition to linking `libtlssigapi_v2.a`, you need to introduce `zlib`  and `openssl` when building a project. They usually come with Unix-like systems, and you only need to add the following command:
 ```
 -lz -lcrypto
 ```
 
 ### Windows
-Windows 平台构建依赖 `CMake` 和 `Visual Studio`，请确保已经安装。
+Project building in Windows depends on `CMake` and `Visual Studio`. Ensure that they have been installed.
 
 ```
 .\build.bat
 ```
 
-头文件路径如下
+The header file path is as follows:
 
 ```
 src/tls_sig_api_v2.h
 ```
 
-库文件路径，分 Win32 和 x64，而且 Debug 和 Release 也通过目录予以区分
+The library file paths are as follows (including Win32 and x64 as well as Debug and Release versions):
 ```
 tls-sig-api_xx/xxxx/tlssigapi_v2.lib
 tls-sig-api_xx/xxxx/zlibstatic.lib
 tls-sig-api_xx/xxxx/mbedcrypto.lib
 ```
-另外 Debug 版本的 zlib 名称为 zlibstaticd.lib
+zlib of the Debug version is named zlibstaticd.lib.
 
-用户构建项目时只需要引用头文件 `src/tls_sig_api_v2.h` 和上述三个库文件。
+When building a project, you only need to reference the header file `src/tls_sig_api_v2.h` and the three library files above.
 
-## 使用
+## Usage
 
-### 接口使用
+### API usage
 
 ```C
 #include "tls_sig_api_v2.h"
@@ -87,12 +86,12 @@ if (0 != ret) {
 
 ```
 
-### 多线程支持
-因为类 Unix 目前默认使用了 openssl，需要在多线程程序初始化时调用。windows 版本无此问题。
+### Multi-thread support
+Because Unix-like systems use OpenSSL by default, you need to call the following function during multi-thread program initialization. This issue does not exist in the Windows version.
 ```C
 thread_setup();
 ```
-在程序结束时调用
+Call the following function when the program ends:
 ```C
 thread_cleanup();
 ```
